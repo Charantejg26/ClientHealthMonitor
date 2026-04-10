@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientHealthMonitorApi", "ClientHealthMonitorApi.csproj", "{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workers", "workers", "{FA681106-2915-4AB2-A678-2E06BA0BA9EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8784BE4A-2B83-4881-AA2E-9F4F36CF0FA5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBAF3E14-4A00-4B86-95F1-4247E71E71D2}
+	EndGlobalSection
+EndGlobal
