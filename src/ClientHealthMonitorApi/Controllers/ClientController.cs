@@ -170,11 +170,12 @@ namespace ClientHealthMonitor.Controllers
         public async Task<ActionResult<IEnumerable<ClientCardUiModel>>> GetClientsForDashBoard()
         {
            
-            var userId = GetUserId();           
+            var userId = GetUserId();
 
             var clients = await _context.Clients
                 .Where(c => c.UserId == userId)
-                .OrderByDescending(c => c.CreatedAt)
+                .OrderByDescending(c => c.Score!.Score) // Sorts by the Score property in ClientScore
+                .Take(5)                               // Limits result to top 5
                 .ToListAsync();
 
             var clientIds = clients.Select(c => c.Id).ToList();
