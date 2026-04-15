@@ -127,18 +127,50 @@ namespace ClientHealthMonitor.Controllers
             return Ok(client);
         }
 
-        // Delete Client
+        //// Delete Client
         [HttpDelete("{clientId:guid}")]
         public async Task<IActionResult> DeleteClient(Guid clientId)
         {
             var userId = GetUserId();
-            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Id == clientId && c.UserId == userId);
-            if (client == null)
-                return NotFound();
 
-            _context.Clients.Remove(client);
-            await _context.SaveChangesAsync();
-            return Ok();
+            // 1. Use a transaction to ensure both Client and ClientScore are deleted together
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {                
+                var client = await _context.Clients
+                    .Include(c => c.Score)
+                    .Include(c => c.Interactions)
+                    .FirstOrDefaultAsync(c => c.Id == clientId && c.UserId == userId);
+
+                if (client == null)
+                {
+                    return NotFound(new { message = "Client not found or unauthorized." });
+                }
+
+                
+                if (client.Score != null)
+                {
+                    _context.ClientScores.Remove(client.Score);
+                }
+
+                if (client.Interactions != null && client.Interactions.Any())
+                {
+                    _context.ClientInteractions.RemoveRange(client.Interactions);
+                }              
+
+                _context.Clients.Remove(client);
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return NoContent(); // 204 No Content is standard for successful deletes
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return StatusCode(500, "An error occurred while deleting the client.");
+            }
         }
 
 
